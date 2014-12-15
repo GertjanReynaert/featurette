@@ -10,6 +10,12 @@
       element = document.getElementsByTagName("h1")[0];
       return expect(element.innerHTML).toEqual("Exclamation!");
     });
+    it("executes multiple features when load is run", function() {
+      var element;
+      Featurette.load();
+      element = document.getElementsByTagName("h2")[0];
+      return expect(element.innerHTML).toEqual("Wondered!?");
+    });
     it("gives ids to featurettes without them", function() {
       var element;
       element = document.getElementsByTagName("h1")[0];
@@ -35,9 +41,21 @@
         return expect(element.innerHTML).toEqual("So cool!");
       });
     });
-    return describe("calling Featurette.load inside a featurette's constructor", function() {
+    describe("calling Featurette.load inside a featurette's constructor", function() {
       return it("doesn't make the world implode", function() {
         return expect(Featurette.get('boom')).toBeDefined();
+      });
+    });
+    return describe("Retrieving a featurette", function() {
+      it("retrieves with id and params", function() {
+        return expect(Featurette.get('multiple', {
+          index: 1
+        })).toBeDefined();
+      });
+      return it("retrieves with id and invalid params", function() {
+        return expect(Featurette.get('multiple', {
+          index: 2
+        })).toBeUndefined();
       });
     });
   });

@@ -19,6 +19,8 @@ class Featurette
           element.featuretteLoading = true
 
     for element in elements
+      element.featurettes = []
+
       featurettes = element.getAttribute("data-featurette")
       featurettes = featurettes.split(" ")
 
@@ -35,7 +37,6 @@ class Featurette
 
           obj = new klass(element)
 
-          element.featurettes = []
           element.featurettes.push(obj)
           @featurettes_counter += 1
         else
@@ -47,7 +48,7 @@ class Featurette
     element = document.getElementById(id)
     if element?
       if params
-        element.featurettes[params.index]
+        element.featurettes[params.index] || console.log "Incorrect params"
       else
         element.featurettes[0]
 

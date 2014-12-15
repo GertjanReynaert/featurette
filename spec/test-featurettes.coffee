@@ -5,6 +5,12 @@ class Exclamation
 
 Featurette.register("exclamation", Exclamation)
 
+class Question
+  constructor: (element) ->
+    element.innerHTML = element.innerHTML + "?"
+
+Featurette.register("question", Question)
+
 class ExclamationGenerator
   constructor: (element) ->
     element.innerHTML = "<div data-featurette='exclamation'>Cool Beans</div>"
