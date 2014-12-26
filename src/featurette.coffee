@@ -19,28 +19,37 @@ class Featurette
           element.featuretteLoading = true
 
     for element in elements
-      featurette = element.getAttribute("data-featurette")
+      element.featurettes = []
 
-      klass = @registered_features[featurette]
+      featurettes = element.getAttribute("data-featurette")
+      featurettes = featurettes.split(" ")
 
-      if klass
-        id = element.id
+      for featurette in featurettes
+        klass = @registered_features[featurette]
 
-        # Set up the automatic id for the element
-        if not id? or id is ""
-          id = "featurette-#{@featurettes_counter}"
-          element.id = id
+        if klass
+          id = element.id
 
-        obj = new klass(element)
+          # Set up the automatic id for the element
+          if not id? or id is ""
+            id = "featurette-#{@featurettes_counter}"
+            element.id = id
 
-        element.featurette = obj
-        @featurettes_counter += 1
-      else
-        if window.console
+          obj = new klass(element)
+
+          element.featurettes.push(obj)
+          @featurettes_counter += 1
+        else
+          if window.console
             console.log "Unknown featurette #{featurette}"
 
   # Returns the featurette object attached to this element
-  @get: (id) ->
-    document.getElementById(id)?.featurette
+  @get: (id, params) ->
+    element = document.getElementById(id)
+    if element?
+      if params
+        element.featurettes[params.index] || console.log "Incorrect params"
+      else
+        element.featurettes[0]
 
 window.Featurette = Featurette
